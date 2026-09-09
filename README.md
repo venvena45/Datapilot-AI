@@ -1,20 +1,20 @@
 ﻿# NexusAnalytics — AI Data Dashboard
 
-Dashboard Business Intelligence self-service yang dipakai Google Gemini AI. Upload file data (CSV, Excel, JSON) → dapatkan analisis otomatis, visualisasi, laporan BI, dan chat AI tentang dataset Anda.
+Self-service Business Intelligence dashboard powered by Google Gemini AI. Upload data files (CSV, Excel, JSON) to get automatic profiling, visualizations, BI reports, and AI-driven conversational insights.
 
 ---
 
-## Fitur Utama
+## Key Features
 
-| Fitur | Deskripsi |
+| Feature | Description |
 |-------|-----------|
-| **Upload Data** | Drag-and-drop CSV, XLSX, JSON — auto-deteksi kolom (Measure, Dimension, Time, Geographic, dll.) |
-| **Overview** | KPI cards, trend chart, donut chart, AI insight panel, export PDF/DOCX |
-| **Trend Analysis** | Visualisasi tren full-width + distribusi kategori |
-| **Raw Data** | Tabel data paginated dengan pencarian |
-| **AI Insights** | Laporan BI lengkap: Executive Summary, Key Findings, Business Insights, Strategic Recommendations, Risks, Opportunities, KPIs |
-| **AI Chat** | Tanya jawab conversasional tentang data (cache response untuk efisiensi) |
-| **Export** | Download laporan sebagai PDF atau DOCX |
+| **Data Upload** | Drag-and-drop CSV, XLSX, JSON — auto-detects column roles (Measure, Dimension, Time, Geographic, etc.) |
+| **Overview** | KPI cards, trend charts, donut charts, AI insight panel, and PDF/DOCX export |
+| **Trend Analysis** | Full-width trend visualization + categorical distribution |
+| **Raw Data** | Searchable, paginated data table |
+| **AI Insights** | Comprehensive BI report: Executive Summary, Key Findings, Business Insights, Strategic Recommendations, Risks, Opportunities, and KPIs |
+| **AI Chat** | Conversational AI assistant for data queries (with response caching) |
+| **Export** | Download generated reports as PDF or DOCX |
 
 ---
 
@@ -23,26 +23,26 @@ Dashboard Business Intelligence self-service yang dipakai Google Gemini AI. Uplo
 **Frontend** (React + Vite + TypeScript)
 - React 18, TypeScript 5, Vite 6
 - Tailwind CSS (custom dark theme)
-- Recharts untuk visualisasi
+- Recharts for visualizations
 - react-dropzone, react-markdown, lucide-react
 
 **Backend** (FastAPI + Python)
 - FastAPI + Uvicorn
-- Pandas, NumPy untuk proses data
+- Pandas, NumPy for data processing
 - Google Generative AI SDK (Gemini)
 - ReportLab (PDF), python-docx (DOCX)
-- Pydantic validasi
+- Pydantic for validation
 
 ---
 
 ## Quick Start
 
-### Prasyarat
+### Prerequisites
 - Node.js 18+
 - Python 3.10+
-- Google Gemini API Key (dapatkan di [Google AI Studio](https://aistudio.google.com/))
+- Google Gemini API Key (get it at [Google AI Studio](https://aistudio.google.com/))
 
-### 1. Clone & Setup Backend
+### 1. Backend Setup
 
 ```bash
 cd backend
@@ -53,39 +53,39 @@ venv\Scripts\activate          # Windows
 pip install -r requirements.txt
 ```
 
-Buat file `.env` di folder `backend/`:
+Create a `.env` file in the `backend/` directory:
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL_NAME=gemini-2.5-flash
 ```
 
-Jalankan server backend:
+Start the backend server:
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```
-API tersedia di `http://localhost:8000` — docs Swagger: `http://localhost:8000/docs`
+API is available at `http://localhost:8000` — Swagger docs: `http://localhost:8000/docs`
 
-### 2. Setup Frontend
+### 2. Frontend Setup
 
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-Frontend jalan di `http://localhost:5173` — proxy `/api/*` otomatis ke backend port 8000.
+Frontend runs at `http://localhost:5173` — `/api/*` requests are automatically proxied to port 8000.
 
 ---
 
-## Struktur Proyek
+## Project Structure
 
 ```
 Dashboard/
 ├── frontend/                 # React SPA
 │   ├── src/
-│   │   ├── components/       # 14 komponen UI (FileUpload, KPICards, Charts, AIChat, dll.)
+│   │   ├── components/       # 14 UI components (FileUpload, KPICards, Charts, AIChat, etc.)
 │   │   ├── hooks/            # Custom hooks (useFileUpload, useAnalysis, useChat, useAITrend)
 │   │   ├── store/            # React Context + useReducer (dataStore)
-│   │   ├── api/client.ts     # Semua panggilan API
+│   │   ├── api/client.ts     # All API calls
 │   │   └── types/index.ts    # TypeScript interfaces
 │   └── package.json
 │
@@ -103,37 +103,37 @@ Dashboard/
 
 ## API Endpoints
 
-| Endpoint | Method | Deskripsi |
+| Endpoint | Method | Description |
 |----------|--------|-----------|
 | `/api/health` | GET | Health check |
 | `/api/upload` | POST | Upload CSV/XLSX/JSON |
 | `/api/analyze/eda` | GET | Exploratory Data Analysis |
-| `/api/analyze/data` | GET | Data paginated |
-| `/api/analyze/insight` | POST | Generate AI/rule-based insight |
-| `/api/analyze/chat` | POST | Chat AI tentang dataset |
-| `/api/analyze/explain-chart` | POST | Penjelasan chart AI |
-| `/api/analyze/config` | GET | Cek status API key |
-| `/api/analyze/columns` | GET | Metadata kolom |
-| `/api/analyze/trend-column` | POST | AI pilih kolom trend |
-| `/api/analyze/trend` | GET | Data trend lengkap |
-| `/api/visualization/full` | POST | Pipeline visualisasi penuh |
+| `/api/analyze/data` | GET | Paginated data retrieval |
+| `/api/analyze/insight` | POST | Generate AI/rule-based insights |
+| `/api/analyze/chat` | POST | AI chat about dataset |
+| `/api/analyze/explain-chart` | POST | AI chart explanation |
+| `/api/analyze/config` | GET | Check API key status |
+| `/api/analyze/columns` | GET | Column metadata |
+| `/api/analyze/trend-column` | POST | AI trend column selection |
+| `/api/analyze/trend` | GET | Full trend data |
+| `/api/visualization/full` | POST | Full visualization pipeline |
 | `/api/export/pdf` | POST | Export PDF |
 | `/api/export/docx` | POST | Export DOCX |
 
 ---
 
-## Cara Pakai
+## Usage Guide
 
-1. **Buka** `http://localhost:5173`
-2. **Masukkan API Key** di sidebar (atau sudah di `.env`) → pilih model Gemini
-3. **Upload file** data via drag-and-drop area
+1. **Open** `http://localhost:5173`
+2. **Enter API Key** in the sidebar (or ensure it's in `.env`) and select a Gemini model.
+3. **Upload** your data file via the drag-and-drop area.
 4. **Explore tabs**:
-   - **Overview** — ringkasan KPI + chart + insight AI
-   - **Trends** — analisis tren detail
-   - **Data** — lihat data mentah
-   - **Insights** — laporan BI lengkap
-   - **Chat** — tanya AI tentang data
-5. **Export** laporan via panel Export (PDF/DOCX)
+   - **Overview** — KPI summary + charts + AI insights.
+   - **Trends** — Detailed trend analysis.
+   - **Data** — View raw data.
+   - **Insights** — Full BI report.
+   - **Chat** — AI Q&A about your data.
+5. **Export** reports via the Export panel (PDF/DOCX).
 
 ---
 
@@ -141,33 +141,33 @@ Dashboard/
 
 File: `backend/.env`
 
-| Variable | Contoh | Fungsi |
+| Variable | Example | Description |
 |----------|--------|--------|
-| `GEMINI_API_KEY` | `sk-xxx` | API Key Google Gemini |
-| `GEMINI_MODEL_NAME` | `gemini-2.5-flash` | Model yang dipakai |
+| `GEMINI_API_KEY` | `sk-xxx` | Google Gemini API Key |
+| `GEMINI_MODEL_NAME` | `gemini-2.5-flash` | Selected AI model |
 
-Model tersedia (pilih di sidebar):
-- `gemini-2.5-flash` (default, cepat)
-- `gemini-2.5-pro` (lebih cerdas)
+Available models (selectable in sidebar):
+- `gemini-2.5-flash` (default, fast)
+- `gemini-2.5-pro` (more intelligent)
 - `gemini-2.0-flash`
 - `gemini-2.0-flash-lite`
 
 ---
 
-## Fallback AI
+## AI Fallback Mechanism
 
-Semua endpoint AI punya fallback rule-based:
-- Kalau Gemini error (quota, no key, network) → otomatis pakai aturan heuristik
-- Chat fallback handle intent: KPI, risk, strategy, trend, ranking, correlation
+All AI endpoints include a rule-based fallback:
+- If Gemini fails (quota, invalid key, network) → automatically switches to heuristic-based analysis.
+- Chat fallback handles common intents: KPI, risk, strategy, trend, ranking, and correlation.
 
 ---
 
-## Build Production
+## Production Build
 
 ```bash
 # Frontend
 cd frontend && npm run build
-# Output di frontend/dist/
+# Output in frontend/dist/
 
 # Backend
 cd backend && pip install gunicorn
@@ -176,6 +176,6 @@ gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 
 ---
 
-## Lisensi
+## License
 
 Internal project — NexusAnalytics AI Data Studio.
