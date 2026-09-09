@@ -124,14 +124,14 @@ export default function TrendChart() {
     <div className="bg-surface border border-border rounded-xl p-6 animate-fade-in">
       {/* Row 1: Title + AI badge */}
       <div className="flex items-center gap-2 mb-1">
-        <h3 className="font-display font-semibold text-text-primary">Trend Analysis</h3>
+        <h3 className="font-display font-semibold text-text-primary whitespace-nowrap">Trend Analysis</h3>
         {aiTrendColumn === topCol && (
-          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-medium">
+          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-medium whitespace-nowrap">
             <Sparkles className="w-3 h-3" /> AI Selected
           </span>
         )}
         {isAIDetecting && (
-          <span className="text-[10px] text-tertiary animate-pulse">AI optimizing...</span>
+          <span className="text-[10px] text-tertiary animate-pulse whitespace-nowrap">AI optimizing...</span>
         )}
       </div>
 
@@ -141,11 +141,12 @@ export default function TrendChart() {
         across <span className="text-text-primary font-medium">{xAxisCol || 'records'}</span>
       </p>
 
-      {/* Row 3: Controls */}
-      <div className="flex flex-wrap items-center gap-2 mb-5">
+      {/* Row 3: All controls in one flex row */}
+      <div className="flex items-center gap-2 mb-5 flex-wrap">
+        {/* Y-axis selector */}
         {validMeasures.length > 1 && (
-          <div className="flex items-center gap-1.5">
-            <span className="text-[10px] text-text-muted font-medium uppercase tracking-wide">Y:</span>
+          <div className="flex items-center gap-1">
+            <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">Y:</span>
             <select
               value={topCol}
               onChange={(e) => setSelectedYCol(e.target.value)}
@@ -158,8 +159,9 @@ export default function TrendChart() {
           </div>
         )}
 
-        <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-text-muted font-medium uppercase tracking-wide">X:</span>
+        {/* X-axis selector */}
+        <div className="flex items-center gap-1">
+          <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">X:</span>
           <select
             value={xAxisCol || ''}
             onChange={(e) => setSelectedXCol(e.target.value)}
@@ -171,8 +173,10 @@ export default function TrendChart() {
           </select>
         </div>
 
-        <div className="flex-1" />
+        {/* Spacer */}
+        <div className="flex-1 min-w-0" />
 
+        {/* Chart type tabs */}
         <div className="flex gap-1 bg-surface-elevated rounded-lg p-1">
           {(['bar', 'line', 'area'] as const).map((type) => (
             <button
@@ -180,7 +184,9 @@ export default function TrendChart() {
               onClick={() => setChartType(type)}
               className={cn(
                 'px-3 py-1 rounded-md text-xs font-medium transition-all',
-                chartType === type ? 'bg-primary/15 text-primary shadow-sm' : 'text-text-muted hover:text-text-primary'
+                chartType === type
+                  ? 'bg-primary/15 text-primary shadow-sm'
+                  : 'text-text-muted hover:text-text-primary'
               )}
             >
               {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -188,6 +194,7 @@ export default function TrendChart() {
           ))}
         </div>
 
+        {/* Settings */}
         <div className="relative">
           <button
             onClick={() => setShowSettings(!showSettings)}
@@ -199,8 +206,8 @@ export default function TrendChart() {
             <Settings className="w-3.5 h-3.5" />
           </button>
           {showSettings && (
-            <div className="absolute right-0 top-full mt-1 w-48 bg-surface border border-border rounded-lg p-3 space-y-2.5 z-10 shadow-xl animate-fade-in">
-              <p className="text-[10px] text-text-muted font-medium uppercase tracking-wide">Line / Area Options</p>
+            <div className="absolute right-0 top-full mt-1 w-48 bg-surface border border-border rounded-xl p-3 space-y-2.5 z-10 shadow-xl animate-fade-in">
+              <p className="text-[10px] text-text-muted font-semibold uppercase tracking-wide mb-2">Line / Area Options</p>
               <label className="flex items-center gap-2 text-xs text-text-secondary cursor-pointer">
                 <input
                   type="checkbox"
